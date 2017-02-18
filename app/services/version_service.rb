@@ -6,7 +6,7 @@ class VersionService
 			if params[:timestamp]
 				time = Time.at(params[:timestamp].to_i).to_datetime
 				versions = item.versions
-				filtered_versions = versions.where("created_at < '#{time}'")
+				filtered_versions = versions.where("created_at <= ?", time)
 				if filtered_versions.empty?
 					{response: {errors: 'No such key before given timestamp'}, status: 422}
 				else
@@ -34,7 +34,7 @@ class VersionService
 			item = Store.new(params)
 			if item.save
 				create_version(item)
-				{response: item, status: 200}
+				{response: item, status: 201}
 			else
 				{response: {errors: item.errors}, status: 422}
 			end

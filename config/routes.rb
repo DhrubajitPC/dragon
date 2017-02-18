@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get '/object/:key', to: 'store#show'
-  post '/object', to: 'store#create'
+  get '/object/:key', to: 'store#show', defaults: {format: :json}
+  post '/object', to: 'store#create', defaults: {format: :json}
 end
